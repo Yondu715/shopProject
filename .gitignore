@@ -6,4 +6,5 @@ dist/
 target/
 package-lock.json
 build
+.idea/
 pom.xml
