@@ -1,0 +1,8 @@
+*.txt
+*.class
+.vscode
+node_modules/
+dist/
+target/
+package-lock.json
+build
