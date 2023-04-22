@@ -1,17 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import PSI from "./ui/page/PSI";
+import PSU from "./ui/page/PSU";
+import PU1 from "./ui/page/PU1";
+import PU2 from "./ui/page/PU2";
+import PU3 from "./ui/page/PU3";
+import PU4 from "./ui/page/PU4";
+import PA1 from "./ui/page/PA1";
+import PA2 from "./ui/page/PA2";
+import PA3 from "./ui/page/PA3";
+import PA4 from "./ui/page/PA4";
+import PA5 from "./ui/page/PA5";
+import Router from "./router/router";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <Router></Router>
   </React.StrictMode>
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
