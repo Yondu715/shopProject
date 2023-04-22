@@ -22,6 +22,12 @@ public class OrderModel implements IModelOrder {
 
     @Override
     public boolean changeStatusOrder(Order order) {
+        String status = order.getStatus();
+        if (status.equals("Выполняется")){
+            order.setStatus("Выполнен");
+        } else {
+            order.setStatus("Выполняется");
+        }
         return repositoryOrder.setOrderStatus(order.getId(), order.getStatus());
     }
 

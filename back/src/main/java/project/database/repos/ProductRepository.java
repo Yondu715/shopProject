@@ -2,6 +2,7 @@ package project.database.repos;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import jakarta.annotation.Resource;
 import jakarta.persistence.EntityManager;
@@ -86,12 +87,13 @@ public class ProductRepository implements IRepositoryProduct {
     @Override
     public boolean deleteById(Integer productId) {
         entityManager = entityManagerFactory.createEntityManager();
-        String query = "delete from EProduct p where u.id=:id";
+        String query = "delete from EProduct p where p.id=:id";
         boolean status = true;
+        Logger.getLogger(ProductRepository.class.getName()).info(String.valueOf(productId));
         try {
             userTransaction.begin();
             entityManager.joinTransaction();
-            entityManager.createQuery(query, EProduct.class).executeUpdate();
+            entityManager.createQuery(query, EProduct.class).setParameter("id", productId).executeUpdate();
             userTransaction.commit();
         } catch (Exception e) {
             status = false;
