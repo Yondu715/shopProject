@@ -19,7 +19,9 @@ import project.controller.interceptor.IdRequired;
 import project.controller.token.Token;
 import project.controller.token.TokenIssuer;
 import project.controller.token.TokenKey;
+import project.model.dto.Order;
 import project.model.dto.User;
+import project.model.interfaces.in.IModelOrder;
 import project.model.interfaces.in.IModelUser;
 
 @Path("/users")
@@ -27,6 +29,10 @@ public class UserPaths {
     @Inject
     @Build
     private IModelUser modelUser;
+
+    @Inject
+    @Build
+    private IModelOrder modelOrder;
 
     private Jsonb jsonb = JsonbBuilder.create();
 
@@ -112,6 +118,23 @@ public class UserPaths {
             return Response.status(Response.Status.BAD_REQUEST).entity(e).build();
         }
         return Response.status(Response.Status.OK).build();
+    }
+
+    @GET
+    @IdRequired
+    @Path("/orders")
+    public Response getOrders(@Context ContainerRequestContext requestContext) {
+        String login = requestContext.getProperty("login").toString();
+        if (login.equals("Error")) {
+            return Response.status(Response.Status.UNAUTHORIZED).build();
+        }
+        try {
+            List<Order> orders = modelOrder.getOrders(login);
+            String result = jsonb.toJson(orders);
+            return Response.ok(result).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(e).build();
+        }
     }
 
 }

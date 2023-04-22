@@ -19,6 +19,12 @@ public class EProduct implements Serializable {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "price")
+    private Integer price;
+
+    @Column(name = "type")
+    private String type;
+
     public Integer getId() {
         return id;
     }
@@ -51,9 +57,4 @@ public class EProduct implements Serializable {
         this.type = type;
     }
 
-    @Column(name = "price")
-    private Integer price;
-
-    @Column(name = "type")
-    private String type;
 }

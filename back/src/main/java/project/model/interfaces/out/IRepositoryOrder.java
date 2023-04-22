@@ -9,7 +9,5 @@ public interface IRepositoryOrder {
 
     public boolean setOrderStatus(Integer id, String status);
 
-    public boolean deleteOrder(Integer id);
-
-    public boolean addOrder(Order order);
+    public boolean addOrder(String login, Order order);
 }

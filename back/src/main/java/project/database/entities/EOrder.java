@@ -1,7 +1,7 @@
 package project.database.entities;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -22,10 +22,10 @@ public class EOrder implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    private EUser eUser;
+    private EUser user;
 
     @Column(name = "created_at")
-    private LocalDateTime createdAt;
+    private Date createdAt = new Date();
 
     @Column(name = "status")
     private String status;
@@ -39,19 +39,19 @@ public class EOrder implements Serializable {
         this.id = id;
     }
 
-    public EUser geteUser() {
-        return eUser;
+    public EUser getUser() {
+        return user;
     }
 
-    public void seteUser(EUser eUser) {
-        this.eUser = eUser;
+    public void setUser(EUser eUser) {
+        this.user = eUser;
     }
 
-    public LocalDateTime getCreatedAt() {
+    public Date getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
+    public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
 

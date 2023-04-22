@@ -21,12 +21,15 @@ public class EOrderProduct implements Serializable {
     
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id")
-    private EOrder eOrder;
-
+    private EOrder order;
+    
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
-    private EProduct eProduct;
-
+    private EProduct product;
+    
+    @Column(name = "quantity")
+    private Integer quantity;
+    
     public Integer getId() {
         return id;
     }
@@ -35,20 +38,20 @@ public class EOrderProduct implements Serializable {
         this.id = id;
     }
 
-    public EOrder geteOrder() {
-        return eOrder;
+    public EOrder getOrder() {
+        return order;
     }
 
-    public void seteOrder(EOrder eOrder) {
-        this.eOrder = eOrder;
+    public void setOrder(EOrder eOrder) {
+        this.order = eOrder;
     }
 
-    public EProduct geteProduct() {
-        return eProduct;
+    public EProduct getProduct() {
+        return product;
     }
 
-    public void seteProduct(EProduct eProduct) {
-        this.eProduct = eProduct;
+    public void setProduct(EProduct eProduct) {
+        this.product = eProduct;
     }
 
     public Integer getQuantity() {
@@ -59,6 +62,4 @@ public class EOrderProduct implements Serializable {
         this.quantity = quantity;
     }
 
-    @Column(name = "quantity")
-    private Integer quantity;
 }
