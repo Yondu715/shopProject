@@ -2,7 +2,7 @@ export function fetchData(url, method, data) {
     return new Promise((resolve) => {
         let body;
         if (method !== 'DELETE'){
-            body = JSON.stringify(data)
+            body = data ? JSON.stringify(data) : null
         }
         else{
             body = undefined

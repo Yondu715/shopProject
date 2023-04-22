@@ -37,6 +37,7 @@ function PA2() {
             setValueN("");
             setValueC("");
             setValueK("");
+            setError("");
 
         }
         else{

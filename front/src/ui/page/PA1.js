@@ -63,7 +63,7 @@ function PA1() {
             ]} items = {prod} onChange = {ValueInp} ></Tabl>
             <div style={{display: "flex", flexDirection: "column"}}>
                 <Error text = ""></Error>
-                <Button text = "Удалить" func = {() => {console.log(valueInp)}}></Button>
+                <Button text = "Удалить" func = {() => {Delete()}}></Button>
             </div>
         </>
     );
