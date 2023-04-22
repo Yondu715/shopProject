@@ -47,7 +47,7 @@ public class UserModel implements IModelUser {
         } else {
             user.setRole("user");
         }
-        return repositoryUser.setUserRole(user);
+        return repositoryUser.setUserRole(user.getId(), user.getRole());
     }
 
     @Override

@@ -94,7 +94,7 @@ public class UserRepository implements IRepositoryUser {
         try {
             userTransaction.begin();
             entityManager.joinTransaction();
-            entityManager.createQuery(query, EUser.class).executeUpdate();
+            entityManager.createQuery(query, EUser.class).setParameter("id", userId).executeUpdate();
             userTransaction.commit();
         } catch (Exception e) {
             status = false;
@@ -103,15 +103,15 @@ public class UserRepository implements IRepositoryUser {
     }
 
     @Override
-    public boolean setUserRole(User user) {
+    public boolean setUserRole(Integer id, String role) {
         entityManager = entityManagerFactory.createEntityManager();
         String query = "update EUser u set u.role=:role where u.id=:id";
         boolean status = true;
         try {
             userTransaction.begin();
             entityManager.joinTransaction();
-            entityManager.createQuery(query, EUser.class).setParameter("role", user.getRole())
-                    .setParameter("id", user.getId()).executeUpdate();
+            entityManager.createQuery(query, EUser.class).setParameter("role", role)
+                    .setParameter("id", id).executeUpdate();
             userTransaction.commit();
         } catch (Exception e) {
             status = false;

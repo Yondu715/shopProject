@@ -13,5 +13,5 @@ public interface IRepositoryUser {
 
     public boolean deleteById(Integer userId);
 
-    public boolean setUserRole(User user);
+    public boolean setUserRole(Integer id, String role);
 }
