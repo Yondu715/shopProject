@@ -31,5 +31,10 @@ public class ProductModel implements IModelProduct {
             repositoryProduct.deleteById(product.getId());
         }
     }
+
+    @Override
+    public List<Product> getAllProducts() {
+        return repositoryProduct.findAll();
+    }
     
 }

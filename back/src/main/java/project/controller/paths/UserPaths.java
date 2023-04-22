@@ -1,16 +1,21 @@
 package project.controller.paths;
 
 import java.security.Key;
+import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.inject.Inject;
 import jakarta.json.bind.Jsonb;
 import jakarta.json.bind.JsonbBuilder;
+import jakarta.ws.rs.DELETE;
+import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.container.ContainerRequestContext;
 import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.Response;
 import project.builder.Build;
+import project.controller.interceptor.IdRequired;
 import project.controller.token.Token;
 import project.controller.token.TokenIssuer;
 import project.controller.token.TokenKey;
@@ -50,7 +55,7 @@ public class UserPaths {
     public Response reg(@Context ContainerRequestContext requestContext, String userJson) {
         try {
             User user = jsonb.fromJson(userJson, User.class);
-            if (modelUser.regUser(user)){
+            if (modelUser.regUser(user)) {
                 return Response.status(Response.Status.OK).build();
             } else {
                 return Response.status(Response.Status.CONFLICT).build();
@@ -58,6 +63,55 @@ public class UserPaths {
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e).build();
         }
+    }
+
+    @GET
+    @IdRequired
+    @Path("/")
+    public Response getUsers(@Context ContainerRequestContext requestContext) {
+        String login = requestContext.getProperty("login").toString();
+        if (login.equals("Error")) {
+            return Response.status(Response.Status.UNAUTHORIZED).build();
+        }
+        List<User> users = modelUser.getAllUsers();
+        String result = jsonb.toJson(users);
+        return Response.ok(result).build();
+    }
+
+    @POST
+    @IdRequired
+    @Path("/")
+    public Response changeRole(@Context ContainerRequestContext requestContext, String userJson) {
+        String login = requestContext.getProperty("login").toString();
+        if (login.equals("Error")) {
+            return Response.status(Response.Status.UNAUTHORIZED).build();
+        }
+        try {
+            User user = jsonb.fromJson(userJson, User.class);
+            modelUser.setUserRole(user);
+        } catch (Exception e) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(e).build();
+        }
+        return Response.status(Response.Status.OK).build();
+    }
+
+    @DELETE
+    @IdRequired
+    @Path("/")
+    public Response deleteUsers(@Context ContainerRequestContext requestContext) {
+        String login = requestContext.getProperty("login").toString();
+        if (login.equals("Error")) {
+            return Response.status(Response.Status.UNAUTHORIZED).build();
+        }
+        String listId = requestContext.getProperty("data").toString();
+        try {
+            List<User> users = jsonb.fromJson(listId, new ArrayList<User>() {
+            }.getClass().getGenericSuperclass());
+            modelUser.deleteUser(users);
+        } catch (Exception e) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(e).build();
+        }
+        return Response.status(Response.Status.OK).build();
     }
 
 }

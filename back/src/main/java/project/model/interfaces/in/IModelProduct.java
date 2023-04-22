@@ -12,5 +12,7 @@ public interface IModelProduct {
 
     public Product getProduct(Integer id);
 
+    public List<Product> getAllProducts();
+
     public void deleteProduct(List<Product> productsId);
 }

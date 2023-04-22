@@ -41,6 +41,12 @@ public class UserModel implements IModelUser {
 
     @Override
     public boolean setUserRole(User user) {
+        String role = user.getRole();
+        if (role.equals("user")){
+            user.setRole("admin");
+        } else {
+            user.setRole("user");
+        }
         return repositoryUser.setUserRole(user);
     }
 
