@@ -5,8 +5,27 @@ import Input from "../comp/input";
 import Button from "../comp/button";
 import Error from "../comp/error";
 import {useNavigate} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {User} from "../../trans/user";
+import {Auth, Reg} from "../../req/reqF";
 
 function PSU() {
+
+    const[error, setError] = useState("");
+
+
+
+    const dispatch = useDispatch();
+
+    const setRoleUser = () => {
+        dispatch({type: "setRole", payload: "user"})
+    }
+
+    const setLogin = (login) => {
+        dispatch({type: "setLogin", payload: login})
+    }
+
+
 
     const router = useNavigate();
 
@@ -19,9 +38,35 @@ function PSU() {
     const[valuePasR, setValuePasR] = useState("");
     const handlerPassR = (e) => setValuePasR(e.target.value);
 
-    console.log(valueInp)
-    console.log(valuePas)
-    console.log(valuePasR)
+    async function Reg_() {
+        if (valueInp !== "" && valuePas !== "" && valuePasR !== "") {
+            if(valuePas === valuePasR){
+                const userV = {
+                    login: valueInp,
+                    password: valuePas
+                }
+
+                const user = new User();
+                user.set(userV);
+                const data = await Reg(user.get());
+                console.log(data)
+
+                if (data.status === 200) {
+                    router('/psi')
+
+                } else {
+                    setError("Пользователь уже существует")
+                }
+            }
+            else {
+                setError("Пароли не совпадают")
+            }
+        }
+        else {
+            setError("Не все поля были заполнены")
+        }
+    }
+
 
     return (
         <>
@@ -33,8 +78,8 @@ function PSU() {
                 <h5 style={{margin: "auto", color: "#6696a2", fontFamily: "Arial"}}><a onClick={() => {router("/psi")}}>Авторизация</a></h5>
             </div>
             <div style={{display: "flex", flexDirection: "column"}}>
-            <Error text = ""></Error>
-            <Button func = {() => {console.log(1111)}} text = 'Войти'></Button>
+            <Error text = {error}></Error>
+            <Button func = {() => {Reg_()}} text = 'Войти'></Button>
             </div>
         </>
     );

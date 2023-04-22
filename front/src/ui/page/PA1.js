@@ -1,29 +1,69 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import Menu from "../comp/menu";
 import Tabl from "../comp/tabl";
 import "../../css/fon.css"
 import Title from "../comp/title";
 import Button from "../comp/button";
 import Error from "../comp/error";
+import {DeleteProduct, Products} from "../../req/reqF";
 
 function PA1() {
+
+    const [error, setError] = useState("")
+
+    const [prod, setProd] = useState([]);
 
     const[valueInp, setValueInp] = useState([]);
     const ValueInp = (valueInp) =>{setValueInp(valueInp)}
 
+    async function listProducts() {
+        let data = await Products();
+        let res = data.data_;
+        console.log(res)
+        let n = 0;
+        let products = [];
+        for (let i = 0; i < res.length; i++) {
+            n = n + 1;
+            products.push({id: res[i].id, item: [{name : n}, {name: res[i].name}, {name: res[i].type}, {name: res[i].price}]})
+        }
+        setProd(products);
+    }
+
+    async function Delete() {
+        if(valueInp.length === 0){
+            setError("Ничего не выбрано");
+        }
+        else {
+            let id = []
+            for (let i = 0; i < valueInp.length; i++){
+                id.push({"id" : valueInp[i]})
+            }
+            await DeleteProduct(id);
+
+            listProducts();
+            setError("");
+            setValueInp((prevState) => {
+                prevState.length = 0;
+                return [prevState];
+            })
+        }
+    }
+
+    useEffect(() => {listProducts();return}, []);
+
     return (
         <>
             <Title title = "Список товаров"></Title>
-            <Menu role= "admin" f = {[() => console.log(1111), () => console.log(2222), () => console.log(3333), () => console.log(4444)]} login = {'Андрейка'} f_exit = {() => console.log("exit")}></Menu>
+            <Menu role= "admin" f = {[() => console.log(1111), () => console.log(2222), () => console.log(3333), () => console.log(4444)]} f_exit = {() => console.log("exit")}></Menu>
             <Tabl tytles = {[
                 {id : 1, name: '№'},
                 {id : 2, name: 'Название'},
                 {id : 3, name: 'Категория'},
                 {id : 4, name: 'Цена'}
-            ]} items = {[{id: 12, app: [{name : "a"}, {name: "a"}, {name: "a"}, {name: "a"}]}, {id: 10, app: [{name : "b"}, {name: "b"}, {name: "b"}, {name: "b"}]}]} onChange = {ValueInp} ></Tabl>
+            ]} items = {prod} onChange = {ValueInp} ></Tabl>
             <div style={{display: "flex", flexDirection: "column"}}>
                 <Error text = ""></Error>
-                <Button text = "Удалить" func = {() => console.log(111)}></Button>
+                <Button text = "Удалить" func = {() => {console.log(valueInp)}}></Button>
             </div>
         </>
     );

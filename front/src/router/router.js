@@ -11,9 +11,11 @@ import PA2 from "../ui/page/PA2";
 import PA3 from "../ui/page/PA3";
 import PA4 from "../ui/page/PA4";
 import PA5 from "../ui/page/PA5";
+import {useSelector} from "react-redux";
 
 const Router = () => {
-    const isAuth = "admin";
+
+    const role = useSelector(state => state.role);
 
     const userRoutes = [
         {p : '/pu1', e: <PU1/>},
@@ -35,20 +37,15 @@ const Router = () => {
         {p : '/psu', e: <PSU/>},
     ];
 
-    const routes = isAuth === "user" ? [...userRoutes, ...commonRoutes] :
-        isAuth === "admin" ? [...adminRoutes, ...commonRoutes] :
+    const routes = role === "user" ? [...userRoutes, ...commonRoutes] :
+        role === "admin" ? [...adminRoutes, ...commonRoutes] :
             commonRoutes;
 
 
     return (
         <BrowserRouter>
             <Routes>
-                {routes.map(route =>
-                    <Route
-                        element= {route.e}
-                        path={route.p}
-                    />
-                )}
+                {routes.map(route => <Route element= {route.e} path={route.p}/>)}
                 <Route path={"/*"} element={<PSI/>}/>
             </Routes>
         </BrowserRouter>

@@ -5,8 +5,12 @@ import Title from "../comp/title";
 import Button from "../comp/button";
 import Error from "../comp/error";
 import Input from "../comp/input";
+import {AddProduct} from "../../req/reqF";
+import {Product} from "../../trans/product";
 
 function PA2() {
+
+    const[error, setError] = useState("");
 
     const[valueK, setValueK] = useState("");
     const handlerK = (e) => setValueK(e.target.value);
@@ -17,22 +21,41 @@ function PA2() {
     const[valueC, setValueC] = useState("");
     const handlerC = (e) => setValueC(e.target.value);
 
-    console.log(valueK)
-    console.log(valueN)
-    console.log(valueC)
+    async function addProduct() {
+        if (valueK !== "" && valueN !== "" && valueC !== "") {
+
+            const productV = {
+                type: valueK,
+                name: valueN,
+                price: valueC
+            }
+
+            const user = new Product();
+            user.set(productV);
+            await AddProduct(user.get());
+
+            setValueN("");
+            setValueC("");
+            setValueK("");
+
+        }
+        else{
+            setError("Не все поля были заполнены")
+        }
+    }
 
     return (
         <>
             <Title title = "Добавить товар"></Title>
-            <Menu role= "admin" f = {[() => console.log(1111), () => console.log(2222), () => console.log(3333), () => console.log(4444)]} login = {'Андрейка'} f_exit = {() => console.log("exit")}></Menu>
+            <Menu role= "admin" f = {[() => console.log(1111), () => console.log(2222), () => console.log(3333), () => console.log(4444)]} f_exit = {() => console.log("exit")}></Menu>
             <div style={{display: "flex", width: "100%", flexDirection: "column", marginTop: "5%"}}>
-                <Input type = 'text' text = "Категория" onChange = {handlerK}></Input>
-                <Input type = 'text' text = "Название" onChange = {handlerN} ></Input>
-                <Input type = 'text' text = "Цена" onChange = {handlerC} ></Input>
+                <Input value={valueK} type = 'text' text = "Категория" onChange = {handlerK}></Input>
+                <Input value={valueN} type = 'text' text = "Название" onChange = {handlerN} ></Input>
+                <Input value={valueC} type = 'text' text = "Цена" onChange = {handlerC} ></Input>
             </div>
             <div style={{display: "flex", flexDirection: "column"}}>
-                <Error text = ""></Error>
-                <Button text = "Добавить" func = {() => console.log(111)}></Button>
+                <Error text = {error}></Error>
+                <Button text = "Добавить" func = {() => {addProduct()}}></Button>
             </div>
         </>
     );
