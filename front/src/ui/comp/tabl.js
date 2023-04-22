@@ -26,7 +26,7 @@ const Tabl = function(props) {
                     <tbody>
                     {props.items.map((item) =>
                         <tr className={value.includes(item.id) ? "back" : "applicat"} key={item.id} onChange={props.onChange(value)} onClick={() => {checkElem(item.id)}}>
-                            {item.app.map((elem)=>
+                            {item.item.map((elem)=>
                                 <td >{elem.name}</td>
                             )}
                         </tr>

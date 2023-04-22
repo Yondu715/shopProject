@@ -16,7 +16,7 @@ function PU1() {
   return (
       <>
           <Title title = "Список товаров"></Title>
-          <Menu role= "user" f = {[() => console.log(1111), () => console.log(2222), () => console.log(3333), () => console.log(4444)]} login = {'Андрейка'} f_exit = {() => console.log("exit")}></Menu>
+          <Menu role = "user" f = {[() => console.log(1111), () => console.log(2222), () => console.log(3333), () => console.log(4444)]} f_exit = {() => console.log("exit")}></Menu>
           <Tabl tytles = {[
         {id : 1, name: '№'},
         {id : 2, name: 'Название'},

@@ -12,10 +12,14 @@ import PA3 from "./ui/page/PA3";
 import PA4 from "./ui/page/PA4";
 import PA5 from "./ui/page/PA5";
 import Router from "./router/router";
+import {Provider} from "react-redux";
+import {api} from "./store/store";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
+    <Provider store={api}>
   <React.StrictMode>
     <Router></Router>
   </React.StrictMode>
+    </Provider>
 );

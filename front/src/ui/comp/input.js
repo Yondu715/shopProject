@@ -4,7 +4,7 @@ import '../../css/input.css'
 const Input = (props) => {
 
     return (
-            <input placeholder={props.text} type={props.type} onChange={props.onChange}/>
+            <input value={props.value} placeholder={props.text} type={props.type} onChange={props.onChange}/>
     );
 };
 
