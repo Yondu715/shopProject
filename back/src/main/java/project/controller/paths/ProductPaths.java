@@ -2,7 +2,6 @@ package project.controller.paths;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 import jakarta.inject.Inject;
 import jakarta.json.bind.Jsonb;

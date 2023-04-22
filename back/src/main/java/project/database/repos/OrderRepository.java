@@ -91,7 +91,7 @@ public class OrderRepository implements IRepositoryOrder {
     @Override
     public boolean addOrder(String login, Order order) {
         entityManager = entityManagerFactory.createEntityManager();
-        String query = "select u from EUser where u.login=:login";
+        String query = "select u from EUser u where u.login=:login";
         Boolean status = true;
         try {
             userTransaction.begin();
@@ -99,7 +99,6 @@ public class OrderRepository implements IRepositoryOrder {
             EUser eUser = entityManager.createQuery(query, EUser.class).setParameter("login", login).getSingleResult();
             EOrder eOrder = new EOrder();
             eOrder.setUser(eUser);
-            eOrder.setCreatedAt(order.getCreatedAt());
             eOrder.setStatus("Выполняется");
             entityManager.persist(eOrder);
             addProductOrder(eOrder, order.getProducts());
@@ -111,11 +110,9 @@ public class OrderRepository implements IRepositoryOrder {
     }
 
     public void addProductOrder(EOrder eOrder, List<Product> products) {
+        String query = "select p from EProduct p where p.id=:id";
         for (Product product : products) {
-            EProduct eProduct = new EProduct();
-            eProduct.setName(product.getName());
-            eProduct.setPrice(product.getPrice());
-            eProduct.setType(product.getType());
+            EProduct eProduct=  entityManager.createQuery(query, EProduct.class).setParameter("id", product.getId()).getSingleResult();
             EOrderProduct eOrderProduct = new EOrderProduct();
             eOrderProduct.setOrder(eOrder);
             eOrderProduct.setQuantity(product.getQuantity());
