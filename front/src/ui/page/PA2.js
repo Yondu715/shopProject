@@ -48,7 +48,7 @@ function PA2() {
     return (
         <>
             <Title title = "Добавить товар"></Title>
-            <Menu role= "admin" f = {[() => console.log(1111), () => console.log(2222), () => console.log(3333), () => console.log(4444)]} f_exit = {() => console.log("exit")}></Menu>
+            <Menu role= "admin" ></Menu>
             <div style={{display: "flex", width: "100%", flexDirection: "column", marginTop: "5%"}}>
                 <Input value={valueK} type = 'text' text = "Категория" onChange = {handlerK}></Input>
                 <Input value={valueN} type = 'text' text = "Название" onChange = {handlerN} ></Input>

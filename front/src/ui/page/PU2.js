@@ -5,11 +5,10 @@ import "../../css/fon.css"
 import Title from "../comp/title";
 import Button from "../comp/button";
 import Error from "../comp/error";
-import plus from "../../img/plus.png";
-import minus from "../../img/minus.png"
 import del from "../../img/delete.png"
-import {useDispatch, useSelector} from "react-redux";
-import {AddOrder, AddProduct, Products} from "../../req/reqF";
+import {useSelector} from "react-redux";
+import {AddOrder} from "../../req/reqF";
+import {Order} from "../../trans/order";
 
 function PU2() {
 
@@ -18,13 +17,12 @@ function PU2() {
     const[valueInp, setValueInp] = useState([]);
     const ValueInp = (valueInp) =>{setValueInp(valueInp)}
 
-
     const Prod = useSelector(state => state.Prod);
-
 
     const [prodd, setProdd] = useState(Prod);
 
     const [sum, setSUM] = useState(0);
+
 
     function Sum(prodd){
         console.log(prodd);
@@ -35,24 +33,34 @@ function PU2() {
         setSUM(a);
     }
 
-    async function addOrder(){
 
-        if (!prodd.isEmpty){
+    async function addOrder(){
+        if (sum !== 0){
             let order =
-                {"products": []};
+                {products: []};
             for(let i = 0; i < prodd.length; i++){
                 order.products.push({
                     "id": prodd[i].id,
                     "quantity": prodd[i].item[3].name
                 })
             }
-            const resp = await AddOrder(order);
-            console.log(resp);
+            const ord = new Order();
+            ord.set(order)
+            const resp = await AddOrder(ord.get());
+            if(resp.status === 200){
+                alert('Заказ успешно оформлен');
+                setProdd([]);
+                setSUM(0)
+            }
+            else {
+                setError('Возникли технические неполадки')
+            }
         }
         else{
             setError("Корзина пуста")
         }
     }
+
 
     function listProducts() {
         let products = [];
@@ -69,12 +77,14 @@ function PU2() {
         Sum(products);
     }
 
+
     useEffect(() => {setProdd(Prod); listProducts();  return }, []);
+
 
     return (
         <>
             <Title title = "Корзина"></Title>
-            <Menu role= "user" f = {[() => console.log(1111), () => console.log(2222), () => console.log(3333), () => console.log(4444)]} f_exit = {() => console.log("exit")}></Menu>
+            <Menu role= "user" ></Menu>
             <Tabl tytles = {[
                 {id : 1, name: 'Название'},
                 {id : 2, name: 'Категория'},

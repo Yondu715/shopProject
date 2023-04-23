@@ -8,7 +8,7 @@ import Error from "../comp/error";
 import plus from "../../img/plus.png";
 import minus from "../../img/minus.png";
 import {Products} from "../../req/reqF";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 
 function PU1() {
@@ -27,11 +27,15 @@ function PU1() {
     const [prod, setProd] = useState([]);
 
 
+
+    const Prod = useSelector(state => state.Prod);
+
     const dispatch = useDispatch();
 
     const serProducts = (prod) => {
         dispatch({type: "setProducts", payload: prod})
     }
+
 
 
     function DataGet() {
@@ -88,6 +92,8 @@ function PU1() {
         setValueCounts(mas);
         setRes(res);
     }
+
+
     useEffect(() => {
         if (res !== undefined) {
             setProd(DataGet());
@@ -95,10 +101,11 @@ function PU1() {
     }, [valueCounts, res]);
     useEffect(() => { listProducts(); return }, []);
 
+
     return (
         <>
             <Title title="Список товаров"></Title>
-            <Menu role="user" f={[() => console.log(1111), () => console.log(2222), () => console.log(3333), () => console.log(4444)]} f_exit={() => console.log("exit")}></Menu>
+            <Menu role="user" ></Menu>
             <Tabl tytles={[
                 { id: 1, name: '№' },
                 { id: 2, name: 'Название' },
@@ -110,7 +117,19 @@ function PU1() {
             ]} items={prod} onChange={ValueInp} ></Tabl>
             <div style={{ display: "flex", flexDirection: "column" }}>
                 <Error text={error}></Error>
-                <Button text="Добавить в корзину" func={() => router('/pu2')}></Button>
+                <Button text="Добавить в корзину" func={() => {
+                    let c = 0;
+                    for(let i = 0; i < Prod.length; i++){
+                        if (Prod[i].item[6].name !== 0){
+                            c += 1;
+                        }
+                    }
+                    if(c === 0){
+                        setError("Выберите товары")
+                    }
+                    else {
+                        router('/pu2')
+                    }}}></Button>
             </div>
         </>
     );

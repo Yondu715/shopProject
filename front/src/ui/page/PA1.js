@@ -54,7 +54,7 @@ function PA1() {
     return (
         <>
             <Title title = "Список товаров"></Title>
-            <Menu role= "admin" f = {[() => console.log(1111), () => console.log(2222), () => console.log(3333), () => console.log(4444)]} f_exit = {() => console.log("exit")}></Menu>
+            <Menu role= "admin" ></Menu>
             <Tabl tytles = {[
                 {id : 1, name: '№'},
                 {id : 2, name: 'Название'},
@@ -62,7 +62,7 @@ function PA1() {
                 {id : 4, name: 'Цена'}
             ]} items = {prod} onChange = {ValueInp} ></Tabl>
             <div style={{display: "flex", flexDirection: "column"}}>
-                <Error text = ""></Error>
+                <Error text = {error}></Error>
                 <Button text = "Удалить" func = {() => {Delete()}}></Button>
             </div>
         </>

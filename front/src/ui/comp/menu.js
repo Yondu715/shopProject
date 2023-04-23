@@ -38,7 +38,7 @@ const Menu = function (props) {
                         <li onClick={() => router("/pu2")} className="has-subnav"><a><img src={cart_u}></img><i
                             className="fa fa-globe fa-2x"></i><span className="nav-text">Корзина</span></a></li>
                         <li onClick={() => router("/pu3")} className="has-subnav"><a><img src={orders_u}></img><i
-                            className="fa fa-comments fa-2x"></i><span className="nav-text">Оформление заказа</span></a></li>
+                            className="fa fa-comments fa-2x"></i><span className="nav-text">Заказы</span></a></li>
                     </ul>
                     :
                     <ul className="menu_">

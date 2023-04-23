@@ -3,23 +3,28 @@ import Menu from "../comp/menu";
 import Tabl from "../comp/tabl";
 import "../../css/fon.css"
 import Title from "../comp/title";
+import {useSelector} from "react-redux";
 
 function PA4() {
 
     const[valueInp, setValueInp] = useState([]);
     const ValueInp = (valueInp) =>{setValueInp(valueInp)}
 
+    const orderA = useSelector(state => state.orderA);
+
+    const idProdA = useSelector(state => state.idProdA);
+
     return (
         <>
-            <Title title = "Заказ"></Title>
-            <Menu role= "admin" f = {[() => console.log(1111), () => console.log(2222), () => console.log(3333), () => console.log(4444)]} f_exit = {() => console.log("exit")}></Menu>
+            <Title title = {"Заказ с ID " + String(idProdA)}></Title>
+            <Menu role= "admin" ></Menu>
             <Tabl tytles = {[
                 {id : 1, name: '№'},
                 {id : 2, name: 'Название'},
                 {id : 3, name: 'Категория'},
                 {id : 4, name: 'Цена'},
                 {id : 5, name: 'Кол-во'},
-            ]}  items = {[{id: 12, app: [{name : "a"}, {name : "a"}, {name: "a"}, {name: "a"}, {name: "a"}]}, {id: 10, app: [{name : "b"}, {name : "b"}, {name: "b"}, {name: "b"}, {name: "b"}]}]} onChange = {ValueInp} ></Tabl>
+            ]}  items = {orderA} onChange = {ValueInp} ></Tabl>
         </>
     );
 }
