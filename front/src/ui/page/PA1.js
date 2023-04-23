@@ -6,6 +6,7 @@ import Title from "../comp/title";
 import Button from "../comp/button";
 import Error from "../comp/error";
 import {DeleteProduct, Products} from "../../req/reqF";
+import {WSocket} from "../../websocket/websocket";
 
 function PA1() {
 
@@ -27,6 +28,7 @@ function PA1() {
             products.push({id: res[i].id, item: [{name : n}, {name: res[i].name}, {name: res[i].type}, {name: res[i].price}]})
         }
         setProd(products);
+        WSocket(listProducts, "/asyncProducts")
     }
 
     async function Delete() {

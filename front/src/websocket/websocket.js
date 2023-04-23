@@ -5,3 +5,13 @@ export async function WSocket(func, url){
             ws.close();
         }
     }
+
+export async function WSocketTm(func, url) {
+    let ws = new WebSocket('ws://localhost:8080/shopProject-1' + url);
+    ws.onmessage = (event) => {
+        if (sessionStorage.getItem('role') === 'admin') {
+            func(event.data);
+        }
+        ws.close();
+    }
+}

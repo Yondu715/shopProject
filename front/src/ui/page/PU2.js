@@ -47,6 +47,7 @@ function PU2() {
                     "quantity": prodd[i].item[3].name
                 })
             }
+            order.totalPrice = sum;
             const ord = new Order();
             ord.set(order)
             const resp = await AddOrder(ord.get());
