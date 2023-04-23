@@ -9,6 +9,7 @@ import {Auth} from "../../req/reqF";
 import {User} from "../../trans/user";
 //import {useDispatch} from "react-redux";
 import {useDispatcher} from "../../store/store";
+import {WSocketTm} from "../../websocket/websocket";
 
 function PSI() {
 
@@ -71,10 +72,12 @@ function PSI() {
                 if (b.role === "user") {
                     setRoleUser("user");
                     router('/pu1')
+                    WSocketTm((a) => {alert(a)}, "/message");
                 }
                 if (b.role === "admin") {
                     setRoleAdmin("admin");
                     router('/pa1')
+                    WSocketTm((a) => {alert(a)}, "/message");
                 }
             } else {
                 setError("Пользователь не найден")

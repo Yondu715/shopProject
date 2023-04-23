@@ -11,6 +11,7 @@ import {Products} from "../../req/reqF";
 //import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import {useDispatcher, useListener} from "../../store/store";
+import {WSocket} from "../../websocket/websocket";
 
 function PU1() {
 
@@ -96,6 +97,7 @@ function PU1() {
         }
         setValueCounts(mas);
         setRes(res);
+        WSocket(listProducts, "/asyncProducts")
     }
 
 
