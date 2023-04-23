@@ -6,7 +6,8 @@ import Title from "../comp/title";
 import more from "../../img/more.png"
 import {OrdersUser} from "../../req/reqF";
 import {useNavigate} from "react-router-dom";
-import {useDispatch} from "react-redux";
+//import {useDispatch} from "react-redux";
+import {useDispatcher} from "../../store/store";
 
 function PU3() {
 
@@ -18,7 +19,11 @@ function PU3() {
     const [ord, setOrd] = useState([])
 
 
+    const serOrderU = useDispatcher("orderU");
 
+    const serIdProdU = useDispatcher("idProdU");
+
+    /*
     const dispatch = useDispatch();
 
     const serOrderU = (ord) => {
@@ -28,6 +33,8 @@ function PU3() {
     const serIdProdU = (id) => {
         dispatch({type: "setIdProdU", payload: id})
     }
+
+     */
 
 
 
@@ -39,16 +46,16 @@ function PU3() {
         let orders = [];
         for (let i = 0; i < res.length; i++) {
             n = n + 1;
-            orders.push({id: res[i].products, item: [{name : n}, {name: res[i].id}, {name: "500 руб"}, {name: res[i].createdAt.substring(0, 10)}, {name: res[i].status}, {name: <a onClick={(event)=> {router("/pu4");
-                        const orderU ={prod : orders[i].id,}
+            orders.push({products: res[i].products, id: res[i].id, item: [{name : n}, {name: res[i].id}, {name: res[i].totalPrice}, {name: res[i].createdAt.substring(0, 10)}, {name: res[i].status}, {name: <a onClick={(event)=> {router("/pu4");
+                        const orderU ={prod : orders[i].products,}
+                        serIdProdU(orders[i].id);
                         let t = 0;
                         let products = [];
                         for (let j = 0; j < orderU.prod.length; j++) {
                             t = t + 1;
                             products.push({id: orderU.prod[j].id, item: [{name : t}, {name: orderU.prod[j].name}, {name: orderU.prod[j].type}, {name: orderU.prod[j].price}, {name: orderU.prod[j].quantity}]})
                         }
-                        serOrderU(products);
-                        serIdProdU(orders[i].id); event.stopPropagation()}}><img src={more}></img></a>}]})
+                        serOrderU(products);event.stopPropagation()}}><img src={more}></img></a>}]})
         }
         setOrd(orders);
     }

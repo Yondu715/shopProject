@@ -40,6 +40,3 @@ export async function DeleteUser(user){
 
 
 
-
-
-

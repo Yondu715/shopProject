@@ -3,16 +3,26 @@ import Menu from "../comp/menu";
 import Tabl from "../comp/tabl";
 import "../../css/fon.css"
 import Title from "../comp/title";
-import {useSelector} from "react-redux";
+//import {useSelector} from "react-redux";
+import {useDispatcher, useListener, useListenerIdProdA, useListenerOrderA} from "../../store/store";
 
 function PA4() {
 
     const[valueInp, setValueInp] = useState([]);
     const ValueInp = (valueInp) =>{setValueInp(valueInp)}
 
+    const orderA = useListenerOrderA();
+
+    const idProdA = useListenerIdProdA();
+
+    console.log(orderA);
+    console.log(idProdA);
+
+    /*
     const orderA = useSelector(state => state.orderA);
 
     const idProdA = useSelector(state => state.idProdA);
+     */
 
     return (
         <>
@@ -24,7 +34,7 @@ function PA4() {
                 {id : 3, name: 'Категория'},
                 {id : 4, name: 'Цена'},
                 {id : 5, name: 'Кол-во'},
-            ]}  items = {orderA} onChange = {ValueInp} ></Tabl>
+            ]}  items = {orderA ?? []} onChange = {ValueInp} ></Tabl>
         </>
     );
 }
