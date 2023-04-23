@@ -17,6 +17,9 @@ function PU1() {
 
     const router = useNavigate()
 
+    const [valueInp, setValueInp] = useState([]);
+    const ValueInp = (valueInp) => { setValueInp(valueInp) }
+
     const [res, setRes] = useState();
 
     const [valueCounts, setValueCounts] = useState([]);
@@ -119,7 +122,7 @@ function PU1() {
                 { id: 5, name: '' },
                 { id: 6, name: '' },
                 { id: 7, name: 'Кол-во' },
-            ]} items={prod} ></Tabl>
+            ]} items={prod} onChange={ValueInp} ></Tabl>
             <div style={{ display: "flex", flexDirection: "column" }}>
                 <Error text={error}></Error>
                 <Button text="Добавить в корзину" func={() => {

@@ -13,6 +13,9 @@ function PU3() {
 
     const router = useNavigate();
 
+    const [valueInp, setValueInp] = useState([]);
+    const ValueInp = (valueInp) => { setValueInp(valueInp) }
+
     const [ord, setOrd] = useState([])
 
 
@@ -75,7 +78,7 @@ function PU3() {
                 { id: 4, name: 'Дата' },
                 { id: 5, name: 'Статус' },
                 { id: 6, name: '' }
-            ]} items={ord} ></Tabl>
+            ]} items={ord} onChange={ValueInp} ></Tabl>
         </>
     );
 }

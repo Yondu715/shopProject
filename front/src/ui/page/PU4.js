@@ -8,6 +8,9 @@ import {useListenerIdProdU, useListenerOrderU} from "../../store/store";
 
 function PU4() {
 
+    const [valueInp, setValueInp] = useState([]);
+    const ValueInp = (valueInp) => { setValueInp(valueInp) }
+
     const orderU = useListenerOrderU();
 
     const idProdU = useListenerIdProdU();
@@ -29,7 +32,7 @@ function PU4() {
                 { id: 3, name: 'Категория' },
                 { id: 4, name: 'Цена' },
                 { id: 5, name: 'Кол-во' },
-            ]} items={orderU} ></Tabl>
+            ]} items={orderU} onChange={ValueInp} ></Tabl>
         </>
     );
 }

@@ -63,7 +63,7 @@ function PSU() {
             </div>
             <div style={{ display: "flex", flexDirection: "column" }}>
                 <Error text={error}></Error>
-                <Button func={() => { Reg_() }} text='Войти'></Button>
+                <Button func={() => { Reg_() }} text='Ок'></Button>
             </div>
         </>
     );
