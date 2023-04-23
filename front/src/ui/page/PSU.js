@@ -5,27 +5,12 @@ import Input from "../comp/input";
 import Button from "../comp/button";
 import Error from "../comp/error";
 import {useNavigate} from "react-router-dom";
-import {useDispatch} from "react-redux";
 import {User} from "../../trans/user";
-import {Auth, Reg} from "../../req/reqF";
+import {Reg} from "../../req/reqF";
 
 function PSU() {
 
     const[error, setError] = useState("");
-
-
-
-    const dispatch = useDispatch();
-
-    const setRoleUser = () => {
-        dispatch({type: "setRole", payload: "user"})
-    }
-
-    const setLogin = (login) => {
-        dispatch({type: "setLogin", payload: login})
-    }
-
-
 
     const router = useNavigate();
 

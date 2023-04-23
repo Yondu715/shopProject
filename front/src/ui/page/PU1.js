@@ -7,12 +7,17 @@ import Button from "../comp/button";
 import Error from "../comp/error";
 import plus from "../../img/plus.png";
 import minus from "../../img/minus.png";
-import { DeleteProduct, Products } from "../../req/reqF";
+import {Products} from "../../req/reqF";
+import {useDispatch} from "react-redux";
+import {useNavigate} from "react-router-dom";
 
 function PU1() {
 
+    const router = useNavigate()
+
     const [valueInp, setValueInp] = useState([]);
     const ValueInp = (valueInp) => { setValueInp(valueInp) }
+
     const [res, setRes] = useState();
 
     const [valueCounts, setValueCounts] = useState([]);
@@ -20,6 +25,14 @@ function PU1() {
     const [error, setError] = useState("")
 
     const [prod, setProd] = useState([]);
+
+
+    const dispatch = useDispatch();
+
+    const serProducts = (prod) => {
+        dispatch({type: "setProducts", payload: prod})
+    }
+
 
     function DataGet() {
         let n = 0;
@@ -32,7 +45,7 @@ function PU1() {
                         setValueCounts(prevState => {
                             const temp = [];
                             for (let j = 0; j < prevState.length; j++) {
-                                if (j == i){
+                                if (j === i){
                                     temp.push(prevState[j] + 1)
                                 } else {
                                     temp.push(prevState[j]);
@@ -43,9 +56,24 @@ function PU1() {
                         event.stopPropagation(); 
                     }
                     }><img src={plus}></img></a>
-                }, { name: <a onClick={(event) => { console.log("-"); event.stopPropagation() }}><img src={minus}></img></a> }, { name: valueCounts[i] ?? 0 }]
+                }, { name: <a onClick={(event) => {
+                        setValueCounts(prevState => {
+                            const temp = [];
+                            for (let j = 0; j < prevState.length; j++) {
+                                if (j === i && prevState[j] > 0){
+                                    temp.push(prevState[j] - 1)
+                                } else {
+                                    temp.push(prevState[j]);
+                                }
+                            }
+                            return temp;
+                        })
+                        event.stopPropagation();
+                    }
+                    }><img src={minus}></img></a> }, { name: valueCounts[i] ?? 0 }]
             })
         }
+        serProducts(products);
         return products;
     }
 
@@ -82,7 +110,7 @@ function PU1() {
             ]} items={prod} onChange={ValueInp} ></Tabl>
             <div style={{ display: "flex", flexDirection: "column" }}>
                 <Error text={error}></Error>
-                <Button text="Добавить в корзину" func={() => console.log(valueCounts)}></Button>
+                <Button text="Добавить в корзину" func={() => router('/pu2')}></Button>
             </div>
         </>
     );
