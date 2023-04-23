@@ -11,11 +11,14 @@ import PA2 from "../ui/page/PA2";
 import PA3 from "../ui/page/PA3";
 import PA4 from "../ui/page/PA4";
 import PA5 from "../ui/page/PA5";
-import {useSelector} from "react-redux";
+import {useListener} from "../store/store";
+//import {useSelector} from "react-redux";
 
 const Router = () => {
 
-    const role = useSelector(state => state.role);
+    //const role = useSelector(state => state.role);
+
+    const role = useListener("role");
 
     const userRoutes = [
         {p : '/pu1', e: <PU1/>},

@@ -6,10 +6,11 @@ import Title from "../comp/title";
 import more from "../../img/more.png";
 import Error from "../comp/error";
 import Button from "../comp/button";
-import {useDispatch} from "react-redux";
+//import {useDispatch} from "react-redux";
 import {Orders, StatusOrder} from "../../req/reqF";
 import {useNavigate} from "react-router-dom";
 import {Order} from "../../trans/order";
+import {useDispatcher} from "../../store/store";
 
 function PA3() {
 
@@ -22,9 +23,11 @@ function PA3() {
 
     const [ord, setOrd] = useState([])
 
+    const serOrderA = useDispatcher("orderA");
 
+    const serIdProdA = useDispatcher("idProdA");
 
-    const dispatch = useDispatch();
+    /*const dispatch = useDispatch();
 
     const serOrderA = (ord) => {
         dispatch({type: "setOrderA", payload: ord})
@@ -32,7 +35,7 @@ function PA3() {
 
     const serIdProdA = (id) => {
         dispatch({type: "setIdProdA", payload: id})
-    }
+    }*/
 
 
     async function statusOrder(){
@@ -60,7 +63,7 @@ function PA3() {
         let orders = [];
         for (let i = 0; i < res.length; i++) {
             n = n + 1;
-            orders.push({products: res[i].products, id: res[i].id,  item: [{name : n}, {name: res[i].id}, {name: "500 руб"}, {name: res[i].createdAt.substring(0, 10)}, {name: res[i].status}, {name: <a onClick={(event)=> {router("/pa4");
+            orders.push({products: res[i].products, id: res[i].id,  item: [{name : n}, {name: res[i].id}, {name: res[i].totalPrice}, {name: res[i].createdAt.substring(0, 10)}, {name: res[i].status}, {name: <a onClick={(event)=> {router("/pa4");
                         const orderA ={prod : orders[i].products,}
                         serIdProdA(orders[i].id);
                         let t = 0;

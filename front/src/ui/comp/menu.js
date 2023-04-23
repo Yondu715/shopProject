@@ -9,12 +9,18 @@ import orders_a from "../../img/order.png"
 import users_a from "../../img/people.png"
 import "../../css/menu.css"
 import {useNavigate} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
+//import {useDispatch, useSelector} from "react-redux";
+import {useDispatcher, useListener} from "../../store/store";
 
 const Menu = function (props) {
 
     const router = useNavigate();
 
+    const login = useListener("login");
+
+    const setRole = useDispatcher("role");
+
+    /*
     const login = useSelector(state => state.login);
 
     const dispatch = useDispatch();
@@ -22,6 +28,7 @@ const Menu = function (props) {
     const setRole = () => {
         dispatch({type: "setRole", payload: ""})
     }
+     */
 
     return (
         <div>
@@ -53,7 +60,7 @@ const Menu = function (props) {
                     </ul>
                 }
                 <ul className="logout">
-                    <li onClick={() => {router("/psi"); setRole()}} className="has-subnav"><a><img src={close}></img><i
+                    <li onClick={() => {router("/psi"); setRole("")}} className="has-subnav"><a><img src={close}></img><i
                         className="fa fa-comments fa-2x"></i><span className="nav-text">Выход</span></a></li>
                 </ul>
             </nav>

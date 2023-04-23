@@ -6,9 +6,10 @@ import Title from "../comp/title";
 import Button from "../comp/button";
 import Error from "../comp/error";
 import del from "../../img/delete.png"
-import {useSelector} from "react-redux";
+//import {useSelector} from "react-redux";
 import {AddOrder} from "../../req/reqF";
 import {Order} from "../../trans/order";
+import {useListener, useListenerProd,} from "../../store/store";
 
 function PU2() {
 
@@ -17,7 +18,7 @@ function PU2() {
     const[valueInp, setValueInp] = useState([]);
     const ValueInp = (valueInp) =>{setValueInp(valueInp)}
 
-    const Prod = useSelector(state => state.Prod);
+    const Prod = useListenerProd();
 
     const [prodd, setProdd] = useState(Prod);
 
@@ -25,6 +26,7 @@ function PU2() {
 
 
     function Sum(prodd){
+        if (!prodd) return
         console.log(prodd);
         let a = 0;
         for (let i = 0; i < prodd.length; i++ ){
@@ -35,6 +37,7 @@ function PU2() {
 
 
     async function addOrder(){
+        if (!prodd) return
         if (sum !== 0){
             let order =
                 {products: []};
@@ -63,6 +66,7 @@ function PU2() {
 
 
     function listProducts() {
+        if (!prodd) return
         let products = [];
         for (let i = 0; i < prodd.length; i++) {
             if(prodd[i].item[6].name !== 0){
@@ -78,7 +82,7 @@ function PU2() {
     }
 
 
-    useEffect(() => {setProdd(Prod); listProducts();  return }, []);
+    useEffect(() => {setProdd(Prod); listProducts();  return }, [Prod]);
 
 
     return (
@@ -91,7 +95,7 @@ function PU2() {
                 {id : 3, name: 'Цена'},
                 {id : 4, name: 'Кол-во'},
                 {id : 5, name: ''}
-            ]}  items = {prodd} onChange = {ValueInp} ></Tabl>
+            ]}  items = {prodd ?? []} onChange = {ValueInp} ></Tabl>
             <div style={{display: "flex", flexDirection: "column"}}>
                 <Error text = {error}></Error>
                 <h5 style={{margin: "20px auto", color: "#6696a2", fontFamily: "Arial"}}> Общая цена {sum}</h5>

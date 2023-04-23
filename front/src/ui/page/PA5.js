@@ -8,6 +8,7 @@ import Error from "../comp/error";
 import del from "../../img/delete.png";
 import {DeleteUser, StatusUser, Userss} from "../../req/reqF";
 import {User} from "../../trans/user";
+import {WSocket} from "../../websocket/websocket";
 
 function PA5() {
 
@@ -32,6 +33,7 @@ function PA5() {
                     );  event.stopPropagation()}}><img src={del}></img></a>}]})
         }
         setUsers(users);
+        WSocket(listUsers, '/asyncUsers')
     }
 
     async function statusUser(){

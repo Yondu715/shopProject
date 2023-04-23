@@ -8,8 +8,9 @@ import Error from "../comp/error";
 import plus from "../../img/plus.png";
 import minus from "../../img/minus.png";
 import {Products} from "../../req/reqF";
-import {useDispatch, useSelector} from "react-redux";
+//import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
+import {useDispatcher, useListener} from "../../store/store";
 
 function PU1() {
 
@@ -27,7 +28,10 @@ function PU1() {
     const [prod, setProd] = useState([]);
 
 
+    const Prod = useListener("Prod");
 
+    const serProducts = useDispatcher("Prod");
+/*
     const Prod = useSelector(state => state.Prod);
 
     const dispatch = useDispatch();
@@ -36,6 +40,7 @@ function PU1() {
         dispatch({type: "setProducts", payload: prod})
     }
 
+ */
 
 
     function DataGet() {
@@ -118,10 +123,12 @@ function PU1() {
             <div style={{ display: "flex", flexDirection: "column" }}>
                 <Error text={error}></Error>
                 <Button text="Добавить в корзину" func={() => {
+                    console.log(Prod);
                     let c = 0;
                     for(let i = 0; i < Prod.length; i++){
                         if (Prod[i].item[6].name !== 0){
                             c += 1;
+                            console.log(Prod[i].item[6].name)
                         }
                     }
                     if(c === 0){

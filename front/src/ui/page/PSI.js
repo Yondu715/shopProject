@@ -7,7 +7,8 @@ import Error from "../comp/error";
 import {useNavigate} from "react-router-dom";
 import {Auth} from "../../req/reqF";
 import {User} from "../../trans/user";
-import {useDispatch} from "react-redux";
+//import {useDispatch} from "react-redux";
+import {useDispatcher} from "../../store/store";
 
 function PSI() {
 
@@ -15,6 +16,12 @@ function PSI() {
 
 
 
+    const setRoleUser = useDispatcher("role");
+
+    const setRoleAdmin = useDispatcher("role");
+
+    const setLogin = useDispatcher("login");
+/*
     const dispatch = useDispatch();
 
     const setRoleUser = () => {
@@ -28,6 +35,8 @@ function PSI() {
     const setLogin = (login) => {
         dispatch({type: "setLogin", payload: login})
     }
+
+ */
 
 
 
@@ -60,11 +69,11 @@ function PSI() {
                 setLogin(b.login);
 
                 if (b.role === "user") {
-                    setRoleUser();
+                    setRoleUser("user");
                     router('/pu1')
                 }
                 if (b.role === "admin") {
-                    setRoleAdmin();
+                    setRoleAdmin("admin");
                     router('/pa1')
                 }
             } else {
