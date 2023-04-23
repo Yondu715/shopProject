@@ -27,7 +27,7 @@ public class OrderRepository implements IRepositoryOrder {
     UserTransaction userTransaction;
 
     @Override
-    public List<Order> findOrderByLogin(String login) {
+    public List<Order> findByLogin(String login) {
         entityManager = entityManagerFactory.createEntityManager();
         String query = "select o from EOrder o where o.user.login=:login";
         List<Order> orders = new ArrayList<>();
@@ -147,6 +147,27 @@ public class OrderRepository implements IRepositoryOrder {
             entityManager.close();
         }
         return orders;
+    }
+
+    @Override
+    public Order findById(Integer id) {
+        entityManager = entityManagerFactory.createEntityManager();
+        String query = "select o from EOrder o where o.id=:id";
+        Order order = new Order();
+        try {
+            userTransaction.begin();
+            entityManager.joinTransaction();
+            EOrder eOrder = entityManager.createQuery(query, EOrder.class).setParameter("id", id).getSingleResult();
+            List<Product> orderProducts = getProductsFromOrder(eOrder.getId());
+            userTransaction.commit();
+            order.setId(eOrder.getId());
+            order.setId_user(eOrder.getUser().getId());
+            order.setProducts(orderProducts);
+            order.setStatus(eOrder.getStatus());
+            order.setCreatedAt(eOrder.getCreatedAt());
+        } catch (Exception e) {
+        }
+        return order;
     }
 
 }

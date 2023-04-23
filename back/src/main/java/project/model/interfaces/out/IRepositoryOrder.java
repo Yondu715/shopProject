@@ -5,7 +5,9 @@ import java.util.List;
 import project.model.dto.Order;
 
 public interface IRepositoryOrder {
-    public List<Order> findOrderByLogin(String login);
+    public List<Order> findByLogin(String login);
+
+    public Order findById(Integer id);
 
     public List<Order> findAll();
 

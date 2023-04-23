@@ -119,4 +119,23 @@ public class UserRepository implements IRepositoryUser {
         return status;
     }
 
+    @Override
+    public User findById(Integer id) {
+        entityManager = entityManagerFactory.createEntityManager();
+        String query = "select u from EUser u where u.id=:id";
+        User user = null;
+        try {
+            EUser eUser = entityManager.createQuery(query, EUser.class).setParameter("id", id).getSingleResult();
+            user = new User();
+            user.setId(eUser.getId());
+            user.setLogin(eUser.getLogin());
+            user.setPassword(eUser.getPassword());
+            user.setRole(eUser.getRole());
+        } catch (Exception e) {
+        } finally {
+            entityManager.close();
+        }
+        return user;
+    }
+
 }

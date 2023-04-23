@@ -17,18 +17,19 @@ public class OrderModel implements IModelOrder {
 
     @Override
     public List<Order> getUserOrders(String login) {
-        return repositoryOrder.findOrderByLogin(login);
+        return repositoryOrder.findByLogin(login);
     }
 
     @Override
     public boolean changeStatusOrder(Order order) {
-        String status = order.getStatus();
+        Order foundOrder = repositoryOrder.findById(order.getId());
+        String status = foundOrder.getStatus();
         if (status.equals("Выполняется")){
-            order.setStatus("Выполнен");
+            foundOrder.setStatus("Выполнен");
         } else {
-            order.setStatus("Выполняется");
+            return true;
         }
-        return repositoryOrder.setOrderStatus(order.getId(), order.getStatus());
+        return repositoryOrder.setOrderStatus(foundOrder.getId(), foundOrder.getStatus());
     }
 
     @Override

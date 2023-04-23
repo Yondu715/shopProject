@@ -17,7 +17,7 @@ import project.model.dto.Order;
 import project.model.interfaces.in.IModelOrder;
 
 @Path("/orders")
-public class orderPaths {
+public class OrderPaths {
 
     @Inject
     @Build

@@ -41,13 +41,14 @@ public class UserModel implements IModelUser {
 
     @Override
     public boolean setUserRole(User user) {
-        String role = user.getRole();
+        User foundUser = repositoryUser.findById(user.getId());
+        String role = foundUser.getRole();
         if (role.equals("user")){
-            user.setRole("admin");
+            foundUser.setRole("admin");
         } else {
-            user.setRole("user");
+            foundUser.setRole("user");
         }
-        return repositoryUser.setUserRole(user.getId(), user.getRole());
+        return repositoryUser.setUserRole(foundUser.getId(), foundUser.getRole());
     }
 
     @Override
@@ -55,6 +56,11 @@ public class UserModel implements IModelUser {
         for (User user : usersId) {
             repositoryUser.deleteById(user.getId());
         }
+    }
+
+    @Override
+    public User getUser(Integer id) {
+        return repositoryUser.findById(id);
     }
     
 }

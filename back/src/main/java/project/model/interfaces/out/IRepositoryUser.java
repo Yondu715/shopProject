@@ -7,6 +7,8 @@ import project.model.dto.User;
 public interface IRepositoryUser {
     public User findByLogin(String login);
 
+    public User findById(Integer id);
+
     public boolean addUser(User user);
 
     public List<User> findAll();

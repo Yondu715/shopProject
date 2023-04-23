@@ -14,6 +14,8 @@ public interface IModelUser {
 
     public User getUser(String login);
 
+    public User getUser(Integer id);
+
     public List<User> getAllUsers();
 
     public boolean setUserRole(User user);
