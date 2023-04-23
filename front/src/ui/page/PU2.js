@@ -15,9 +15,6 @@ function PU2() {
 
     const [error, setError] = useState("");
 
-    const [valueInp, setValueInp] = useState([]);
-    const ValueInp = (valueInp) => { setValueInp(valueInp) }
-
     const Prod = useListenerProd();
 
     const [prodd, setProdd] = useState(Prod);
@@ -101,7 +98,7 @@ function PU2() {
                 { id: 3, name: 'Цена' },
                 { id: 4, name: 'Кол-во' },
                 { id: 5, name: '' }
-            ]} items={prodd ?? []} onChange={ValueInp} ></Tabl>
+            ]} items={prodd ?? []} ></Tabl>
             <div style={{ display: "flex", flexDirection: "column" }}>
                 <Error text={error}></Error>
                 <h5 style={{ margin: "20px auto", color: "#6696a2", fontFamily: "Arial" }}> Общая цена {sum}</h5>

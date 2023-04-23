@@ -4,16 +4,13 @@ import Tabl from "../comp/tabl";
 import "../../css/fon.css"
 import Title from "../comp/title";
 //import {useSelector} from "react-redux";
-import { useListenerIdProdA, useListenerOrderU } from "../../store/store";
+import {useListenerIdProdU, useListenerOrderU} from "../../store/store";
 
 function PU4() {
 
-    const [valueInp, setValueInp] = useState([]);
-    const ValueInp = (valueInp) => { setValueInp(valueInp) }
-
     const orderU = useListenerOrderU();
 
-    const idProdU = useListenerIdProdA();
+    const idProdU = useListenerIdProdU();
 
     /*
     const orderU = useSelector(state => state.orderU);
@@ -32,7 +29,7 @@ function PU4() {
                 { id: 3, name: 'Категория' },
                 { id: 4, name: 'Цена' },
                 { id: 5, name: 'Кол-во' },
-            ]} items={orderU} onChange={ValueInp} ></Tabl>
+            ]} items={orderU} ></Tabl>
         </>
     );
 }
