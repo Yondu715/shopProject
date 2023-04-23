@@ -14,7 +14,7 @@ export function fetchData(url, method, data) {
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
                 "Authorization": localStorage.getItem("token"),
-                "Data": JSON.stringify(data)
+                "Data": JSON.stringify(body)
             }
         })
             .then(async response => {
