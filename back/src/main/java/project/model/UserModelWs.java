@@ -4,10 +4,9 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 import jakarta.ejb.Asynchronous;
 import jakarta.websocket.Session;
-import project.model.interfaces.in.IModelProductWs;
+import project.model.interfaces.in.IModelUsersWs;
 
-public class ProductWs implements IModelProductWs {
-
+public class UserModelWs implements IModelUsersWs {
     private final static ConcurrentLinkedQueue<Session> queue = new ConcurrentLinkedQueue<>();
 
     @Override
@@ -27,7 +26,11 @@ public class ProductWs implements IModelProductWs {
     public void sendMessage(String message) {
         for (Session session : queue) {
             if (session.isOpen()) {
-                session.getAsyncRemote().sendText(message);
+                if (message == null) {
+                    session.getAsyncRemote().sendObject(true);
+                } else {
+                    session.getAsyncRemote().sendText(message);
+                }
             }
         }
     }
@@ -35,10 +38,9 @@ public class ProductWs implements IModelProductWs {
     @Override
     public void sendAll() {
         for (Session session : queue) {
-            if (session.isOpen()) {
+            if (session.isOpen()){
                 session.getAsyncRemote().sendObject(true);
             }
         }
     }
-
 }

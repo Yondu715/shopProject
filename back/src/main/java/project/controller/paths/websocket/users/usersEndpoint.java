@@ -6,13 +6,13 @@ import jakarta.websocket.OnMessage;
 import jakarta.websocket.OnOpen;
 import jakarta.websocket.Session;
 import jakarta.websocket.server.ServerEndpoint;
-import project.model.interfaces.in.IModelUsersWs;
+import project.model.interfaces.in.IModelProductWSv2;
 
 @ServerEndpoint(value = "/asyncUsers")
 public class usersEndpoint {
 
     @Inject
-    IModelUsersWs modelUsersWs;
+    IModelProductWSv2 modelUsersWs;
 
     @OnOpen
     public void connectionOpen(Session session) {
