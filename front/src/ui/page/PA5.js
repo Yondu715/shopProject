@@ -33,7 +33,7 @@ function PA5() {
                     );  event.stopPropagation()}}><img src={del}></img></a>}]})
         }
         setUsers(users);
-        WSocket(listUsers, '/asyncUsers')
+        WSocket(listUsers, "/asyncUsers")
     }
 
     async function statusUser(){

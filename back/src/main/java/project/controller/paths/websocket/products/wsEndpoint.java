@@ -20,7 +20,7 @@ public class wsEndpoint {
     }
 
     @OnMessage
-    public void messageProcess() {
+    public void messageProcess(Session session, String message) {
         modelProductWs.sendAll();
     }
 

@@ -8,7 +8,7 @@ import jakarta.websocket.Session;
 import jakarta.websocket.server.ServerEndpoint;
 import project.model.interfaces.in.IModelUsersWs;
 
-@ServerEndpoint("/asyncUsers")
+@ServerEndpoint(value = "/asyncUsers")
 public class wsEndpoint {
 
     @Inject
@@ -20,7 +20,7 @@ public class wsEndpoint {
     }
 
     @OnMessage
-    public void messageProcess() {
+    public void messageProcess(Session session, String message) {
         modelUsersWs.sendAll();
     }
 
