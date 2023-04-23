@@ -1,11 +1,14 @@
 export function fetchData(url, method, data) {
     return new Promise((resolve) => {
         let body;
+        let dat;
         if (method !== 'DELETE'){
             body = data ? JSON.stringify(data) : null
+            dat = null;
         }
         else{
-            body = undefined
+            body = null;
+            dat = JSON.stringify(data);
         }
 
         fetch("http://localhost:8080/shopProject-1/api" + url, {
@@ -14,7 +17,7 @@ export function fetchData(url, method, data) {
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
                 "Authorization": localStorage.getItem("token"),
-                "Data": JSON.stringify(body)
+                "Data": dat
             }
         })
             .then(async response => {
