@@ -6,7 +6,7 @@ import jakarta.ejb.Stateless;
 @Stateless
 public class timerMessage {
 
-    @Schedule(second = "*/10", minute = "0", hour = "0")
+    @Schedule(second = "0", minute = "0", hour = "12")
     public void init(){
         messageEndpoint.sendAll("Время пить чай!");
     }

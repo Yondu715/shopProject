@@ -33,6 +33,7 @@ public class ProductModelWs implements IModelProductWs {
     }
 
     @Override
+    @Asynchronous
     public void sendAll() {
         for (Session session : queue) {
             if (session.isOpen()) {

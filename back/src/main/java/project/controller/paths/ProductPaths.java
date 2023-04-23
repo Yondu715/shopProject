@@ -17,7 +17,7 @@ import project.builder.Build;
 import project.controller.interceptor.IdRequired;
 import project.model.dto.Product;
 import project.model.interfaces.in.IModelProduct;
-import project.model.interfaces.in.IModelProductWs;
+import project.model.interfaces.in.IModelProductWs2;
 
 @Path("/products")
 public class ProductPaths {
@@ -27,7 +27,7 @@ public class ProductPaths {
     private IModelProduct modelProduct;
 
     @Inject
-    private IModelProductWs modelProductWs;
+    private IModelProductWs2 modelProductWs;
 
     private Jsonb jsonb = JsonbBuilder.create();
 

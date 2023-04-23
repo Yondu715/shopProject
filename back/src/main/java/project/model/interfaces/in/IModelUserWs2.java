@@ -2,8 +2,7 @@ package project.model.interfaces.in;
 
 import jakarta.websocket.Session;
 
-public interface IModelUsersWs {
-
+public interface IModelUserWs2 {
     public void addSession(Session session);
 
     public void removeSession(Session session);

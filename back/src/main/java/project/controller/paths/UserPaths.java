@@ -23,7 +23,7 @@ import project.model.dto.Order;
 import project.model.dto.User;
 import project.model.interfaces.in.IModelOrder;
 import project.model.interfaces.in.IModelUser;
-import project.model.interfaces.in.IModelUsersWs;
+import project.model.interfaces.in.IModelUserWs2;
 
 @Path("/users")
 public class UserPaths {
@@ -36,7 +36,7 @@ public class UserPaths {
     private IModelOrder modelOrder;
 
     @Inject
-    private IModelUsersWs modelUsersWs;
+    private IModelUserWs2 modelUsersWs;
 
     private Jsonb jsonb = JsonbBuilder.create();
 

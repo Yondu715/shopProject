@@ -5,9 +5,9 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import jakarta.annotation.Resource;
 import jakarta.enterprise.concurrent.ManagedExecutorService;
 import jakarta.websocket.Session;
-import project.model.interfaces.in.IModelProductWSv2;
+import project.model.interfaces.in.IModelProductWs2;
 
-public class ProductModelWsv2 implements IModelProductWSv2 {
+public class ProductModelWs2 implements IModelProductWs2 {
 
     @Resource
     ManagedExecutorService mes;
@@ -49,4 +49,5 @@ public class ProductModelWsv2 implements IModelProductWSv2 {
             }
         });
     }
+    
 }

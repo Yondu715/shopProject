@@ -4,9 +4,9 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 import jakarta.ejb.Asynchronous;
 import jakarta.websocket.Session;
-import project.model.interfaces.in.IModelUsersWs;
+import project.model.interfaces.in.IModelUserWs;
 
-public class UserModelWs implements IModelUsersWs {
+public class UserModelWs implements IModelUserWs {
     private final static ConcurrentLinkedQueue<Session> queue = new ConcurrentLinkedQueue<>();
 
     @Override
@@ -36,6 +36,7 @@ public class UserModelWs implements IModelUsersWs {
     }
 
     @Override
+    @Asynchronous
     public void sendAll() {
         for (Session session : queue) {
             if (session.isOpen()){
