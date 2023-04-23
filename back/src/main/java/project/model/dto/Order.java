@@ -10,6 +10,15 @@ public class Order {
     private List<Product> products;
     private String status;
     private Date createdAt;
+    private Integer totalPrice;
+
+    public Integer getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(Integer totalPrice) {
+        this.totalPrice = totalPrice;
+    }
 
     public Integer getId() {
         return id;

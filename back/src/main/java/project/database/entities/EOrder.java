@@ -30,6 +30,9 @@ public class EOrder implements Serializable {
     @Column(name = "status")
     private String status;
 
+    @Column(name = "total_price")
+    private Integer totalPrice;
+
 
     public Integer getId() {
         return id;
@@ -61,5 +64,13 @@ public class EOrder implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Integer getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(Integer totalPrice) {
+        this.totalPrice = totalPrice;
     }
 }

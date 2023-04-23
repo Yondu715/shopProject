@@ -44,6 +44,7 @@ public class OrderRepository implements IRepositoryOrder {
                 order.setProducts(orderProducts);
                 order.setStatus(eOrder.getStatus());
                 order.setCreatedAt(eOrder.getCreatedAt());
+                order.setTotalPrice(eOrder.getTotalPrice());
                 orders.add(order);
             }
             userTransaction.commit();
@@ -100,6 +101,7 @@ public class OrderRepository implements IRepositoryOrder {
             EOrder eOrder = new EOrder();
             eOrder.setUser(eUser);
             eOrder.setStatus("Выполняется");
+            eOrder.setTotalPrice(order.getTotalPrice());
             entityManager.persist(eOrder);
             addProductOrder(eOrder, order.getProducts());
             userTransaction.commit();
@@ -139,6 +141,7 @@ public class OrderRepository implements IRepositoryOrder {
                 order.setProducts(orderProducts);
                 order.setStatus(eOrder.getStatus());
                 order.setCreatedAt(eOrder.getCreatedAt());
+                order.setTotalPrice(eOrder.getTotalPrice());
                 orders.add(order);
             }
             userTransaction.commit();
@@ -165,6 +168,7 @@ public class OrderRepository implements IRepositoryOrder {
             order.setProducts(orderProducts);
             order.setStatus(eOrder.getStatus());
             order.setCreatedAt(eOrder.getCreatedAt());
+            order.setTotalPrice(eOrder.getTotalPrice());
         } catch (Exception e) {
         }
         return order;
