@@ -23,6 +23,7 @@ import project.model.dto.Order;
 import project.model.dto.User;
 import project.model.interfaces.in.IModelOrder;
 import project.model.interfaces.in.IModelUser;
+import project.model.interfaces.in.IModelUsersWs;
 
 @Path("/users")
 public class UserPaths {
@@ -33,6 +34,9 @@ public class UserPaths {
     @Inject
     @Build
     private IModelOrder modelOrder;
+
+    @Inject
+    private IModelUsersWs modelUsersWs;
 
     private Jsonb jsonb = JsonbBuilder.create();
 
@@ -62,6 +66,7 @@ public class UserPaths {
         try {
             User user = jsonb.fromJson(userJson, User.class);
             if (modelUser.regUser(user)) {
+                modelUsersWs.sendAll();
                 return Response.status(Response.Status.OK).build();
             } else {
                 return Response.status(Response.Status.CONFLICT).build();
@@ -95,6 +100,7 @@ public class UserPaths {
         try {
             User user = jsonb.fromJson(userJson, User.class);
             modelUser.setUserRole(user);
+            modelUsersWs.sendAll();
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e).build();
         }
@@ -114,6 +120,7 @@ public class UserPaths {
             List<User> users = jsonb.fromJson(listId, new ArrayList<User>() {
             }.getClass().getGenericSuperclass());
             modelUser.deleteUser(users);
+            modelUsersWs.sendAll();
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e).build();
         }
