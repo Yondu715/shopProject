@@ -16,4 +16,12 @@ export async function AddProduct(product) {
 export async function DeleteProduct(product) {
     return await fetchData("/products/", "DELETE", product);}
 
+export async function AddOrder(order) {
+    return await fetchData("/users/orders", "POST", order);}
+
+export async function GetOrdersUser(product) {
+    return await fetchData("/users/orders", "GET");}
+
+
+
 
