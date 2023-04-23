@@ -112,13 +112,41 @@ public class OrderRepository implements IRepositoryOrder {
     public void addProductOrder(EOrder eOrder, List<Product> products) {
         String query = "select p from EProduct p where p.id=:id";
         for (Product product : products) {
-            EProduct eProduct=  entityManager.createQuery(query, EProduct.class).setParameter("id", product.getId()).getSingleResult();
+            EProduct eProduct = entityManager.createQuery(query, EProduct.class).setParameter("id", product.getId())
+                    .getSingleResult();
             EOrderProduct eOrderProduct = new EOrderProduct();
             eOrderProduct.setOrder(eOrder);
             eOrderProduct.setQuantity(product.getQuantity());
             eOrderProduct.setProduct(eProduct);
             entityManager.persist(eOrderProduct);
         }
+    }
+
+    @Override
+    public List<Order> findAll() {
+        entityManager = entityManagerFactory.createEntityManager();
+        String query = "select o from EOrder o";
+        List<Order> orders = new ArrayList<>();
+        try {
+            userTransaction.begin();
+            entityManager.joinTransaction();
+            List<EOrder> eOrders = entityManager.createQuery(query, EOrder.class).getResultList();
+            for (EOrder eOrder : eOrders) {
+                Order order = new Order();
+                List<Product> orderProducts = getProductsFromOrder(eOrder.getId());
+                order.setId(eOrder.getId());
+                order.setId_user(eOrder.getUser().getId());
+                order.setProducts(orderProducts);
+                order.setStatus(eOrder.getStatus());
+                order.setCreatedAt(eOrder.getCreatedAt());
+                orders.add(order);
+            }
+            userTransaction.commit();
+        } catch (Exception e) {
+        } finally {
+            entityManager.close();
+        }
+        return orders;
     }
 
 }

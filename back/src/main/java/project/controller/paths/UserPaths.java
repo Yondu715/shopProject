@@ -129,7 +129,7 @@ public class UserPaths {
             return Response.status(Response.Status.UNAUTHORIZED).build();
         }
         try {
-            List<Order> orders = modelOrder.getOrders(login);
+            List<Order> orders = modelOrder.getUserOrders(login);
             String result = jsonb.toJson(orders);
             return Response.ok(result).build();
         } catch (Exception e) {
@@ -157,25 +157,7 @@ public class UserPaths {
         }
     }
 
-    @POST
-    @IdRequired
-    @Path("/orders/status")
-    public Response changeStatus(@Context ContainerRequestContext requestContext, String orderJson) {
-        String login = requestContext.getProperty("login").toString();
-        if (login.equals("Error")) {
-            return Response.status(Response.Status.UNAUTHORIZED).build();
-        }
-        try {
-            Order order = jsonb.fromJson(orderJson, Order.class);
-            if (modelOrder.changeStatusOrder(order)){
-                return Response.status(Response.Status.OK).build();
-            } else {
-                return Response.status(Response.Status.BAD_REQUEST).build();
-            }
-        } catch (Exception e) {
-            return Response.status(Response.Status.BAD_REQUEST).entity(e).build();
-        }
-    }
+    
 
 
 

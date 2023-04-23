@@ -9,7 +9,9 @@ public interface IModelOrder {
 
     public void setRepository(IRepositoryOrder repositoryOrder);
 
-    public List<Order> getOrders(String login);
+    public List<Order> getUserOrders(String login);
+
+    public List<Order> getAllOrders();
 
     public boolean changeStatusOrder(Order order);
 

@@ -16,7 +16,7 @@ public class OrderModel implements IModelOrder {
     }
 
     @Override
-    public List<Order> getOrders(String login) {
+    public List<Order> getUserOrders(String login) {
         return repositoryOrder.findOrderByLogin(login);
     }
 
@@ -34,6 +34,11 @@ public class OrderModel implements IModelOrder {
     @Override
     public boolean addOrder(String login, Order order) {
         return repositoryOrder.addOrder(login, order);
+    }
+
+    @Override
+    public List<Order> getAllOrders() {
+        return repositoryOrder.findAll();
     }
 
     
