@@ -7,11 +7,11 @@ import Button from "../comp/button";
 import Error from "../comp/error";
 import plus from "../../img/plus.png";
 import minus from "../../img/minus.png";
-import {Products} from "../../req/reqF";
+import { Products } from "../../req/reqF";
 //import {useDispatch, useSelector} from "react-redux";
-import {useNavigate} from "react-router-dom";
-import {useDispatcher, useListener} from "../../store/store";
-import {WSocket} from "../../websocket/websocket";
+import { useNavigate } from "react-router-dom";
+import { useDispatcher, useListener } from "../../store/store";
+import { WSocket } from "../../websocket/websocket";
 
 function PU1() {
 
@@ -32,17 +32,16 @@ function PU1() {
     const Prod = useListener("Prod");
 
     const serProducts = useDispatcher("Prod");
-/*
-    const Prod = useSelector(state => state.Prod);
-
-    const dispatch = useDispatch();
-
-    const serProducts = (prod) => {
-        dispatch({type: "setProducts", payload: prod})
-    }
-
- */
-
+    /*
+        const Prod = useSelector(state => state.Prod);
+    
+        const dispatch = useDispatch();
+    
+        const serProducts = (prod) => {
+            dispatch({type: "setProducts", payload: prod})
+        }
+    
+     */
 
     function DataGet() {
         let n = 0;
@@ -51,11 +50,11 @@ function PU1() {
             n = n + 1;
             products.push({
                 id: res[i].id, item: [{ name: n }, { name: res[i].name }, { name: res[i].type }, { name: res[i].price }, {
-                    name: <a onClick={(event) => { 
+                    name: <a onClick={(event) => {
                         setValueCounts(prevState => {
                             const temp = [];
                             for (let j = 0; j < prevState.length; j++) {
-                                if (j === i){
+                                if (j === i) {
                                     temp.push(prevState[j] + 1)
                                 } else {
                                     temp.push(prevState[j]);
@@ -63,14 +62,15 @@ function PU1() {
                             }
                             return temp;
                         })
-                        event.stopPropagation(); 
+                        event.stopPropagation();
                     }
                     }><img src={plus}></img></a>
-                }, { name: <a onClick={(event) => {
+                }, {
+                    name: <a onClick={(event) => {
                         setValueCounts(prevState => {
                             const temp = [];
                             for (let j = 0; j < prevState.length; j++) {
-                                if (j === i && prevState[j] > 0){
+                                if (j === i && prevState[j] > 0) {
                                     temp.push(prevState[j] - 1)
                                 } else {
                                     temp.push(prevState[j]);
@@ -80,7 +80,8 @@ function PU1() {
                         })
                         event.stopPropagation();
                     }
-                    }><img src={minus}></img></a> }, { name: valueCounts[i] ?? 0 }]
+                    }><img src={minus}></img></a>
+                }, { name: valueCounts[i] ?? 0 }]
             })
         }
         serProducts(products);
@@ -125,20 +126,19 @@ function PU1() {
             <div style={{ display: "flex", flexDirection: "column" }}>
                 <Error text={error}></Error>
                 <Button text="Добавить в корзину" func={() => {
-                    console.log(Prod);
                     let c = 0;
-                    for(let i = 0; i < Prod.length; i++){
-                        if (Prod[i].item[6].name !== 0){
+                    for (let i = 0; i < Prod.length; i++) {
+                        if (Prod[i].item[6].name !== 0) {
                             c += 1;
-                            console.log(Prod[i].item[6].name)
                         }
                     }
-                    if(c === 0){
+                    if (c === 0) {
                         setError("Выберите товары")
                     }
                     else {
                         router('/pu2')
-                    }}}></Button>
+                    }
+                }}></Button>
             </div>
         </>
     );
