@@ -9,7 +9,7 @@ import jakarta.websocket.server.ServerEndpoint;
 import project.model.interfaces.in.IModelUsersWs;
 
 @ServerEndpoint(value = "/asyncUsers")
-public class wsEndpoint {
+public class usersEndpoint {
 
     @Inject
     IModelUsersWs modelUsersWs;

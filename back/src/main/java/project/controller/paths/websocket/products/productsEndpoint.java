@@ -9,10 +9,11 @@ import jakarta.websocket.server.ServerEndpoint;
 import project.model.interfaces.in.IModelProductWs;
 
 @ServerEndpoint("/asyncProducts")
-public class wsEndpoint {
+public class productsEndpoint {
 
     @Inject
     IModelProductWs modelProductWs;
+    
     
     @OnOpen
     public void connectionOpen(Session session){
